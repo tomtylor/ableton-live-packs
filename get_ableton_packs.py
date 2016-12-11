@@ -14,7 +14,7 @@ debug = 1
 pp = pprint.PrettyPrinter(indent=4)
 logging.basicConfig(level=logging.DEBUG)
 # Change to your directory!
-DIRNAME = '/home/tk5149/AbletonPacks/'
+DIRNAME = '/Volumes/DATA/AbletonPacks/'
 USERNAME = input('Username:')
 PASSWORD = getpass.getpass()
 URL = 'https://www.ableton.com/en/login/'
@@ -67,12 +67,12 @@ with requests.Session() as c:
         remote_file = urllib.request.urlopen(alpurl)
         remote_file_size = remote_file.headers['Content-Length']
 
-        if int(remote_file_size) <= 10485760:
+        # if int(remote_file_size) <= 10485760:
+        if int(remote_file_size) > 0:
             if os.path.exists(file_path) and os.access(file_path, os.R_OK):
-                f = open(file_path, "rb")
-                file_size_on_disk = len(f.read())
+                statinfo = os.stat(file_path)
+                file_size_on_disk = statinfo.st_size
                 print("Pack",pack_name,"already exists")
-                f.close()
 
                 if int(remote_file_size) != int(file_size_on_disk):
                     print("Remote file",pack_name,"seems to be newer than local file (",size(int(remote_file_size)),"compared to",size(int(file_size_on_disk)),")")
