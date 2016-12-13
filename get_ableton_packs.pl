@@ -5,18 +5,17 @@ use warnings;
 
 use WWW::Mechanize;
 use Crypt::SSLeay;
-use Data::Dumper;
-
 use IO::Socket::SSL;
 use Mozilla::CA;
 use IPC::System::Simple qw(capture);
+
+use Data::Dumper;
 use File::stat;
 
 my $mech = WWW::Mechanize->new();
 $mech->get('https://www.ableton.com/en/login/');
 
 my ($login, $password);
-
 print "login: ";
 chop($login=<STDIN>);
 print "Password: ";
@@ -25,23 +24,17 @@ chop($password=<STDIN>);
 system('stty', 'echo');
 
 $mech->submit_form(
-    with_fields      => {
+    with_fields => {
         username    => $login,
         password    => $password,
     }
 );
-
 $mech->agent("Mozilla/5.0 (Windows; U; Windows NT 6.1; ru; rv:1.9.2.18) Gecko/20110614 Firefox/3.6.18" );
-
 
 my $alp;
 my $category;
 my (%hash, %hash_packs);
 my $i = 0;
-my $count = 0;
-my $link;
-my @push;
-
 
 my $dmsurl = [ 'https://www.ableton.com/en/account/', 'https://www.ableton.com/en/packs/' ];
 
@@ -67,9 +60,9 @@ foreach my $url (@$dmsurl) {
     }
 }
 
-# print Dumper \%hash;
-# print Dumper \%hash_packs;
-# exit;
+print Dumper \%hash;
+print Dumper \%hash_packs;
+exit;
 
 my $pack_count = 0;
 my $dir = '/home/tk5149/AbletonLivePacks/';
