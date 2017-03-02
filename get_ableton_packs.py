@@ -58,7 +58,7 @@ with requests.Session() as c:
     for match in m_all:
         pack_name = re.match('.+/([A-Za-z0-9-_\.]+\.alp)', match)
         pack_name = pack_name.group(1)
-        alpurl = re.sub(r" &amp; ", "%20&%20", match)
+        alp_url = re.sub(r" &amp; ", "%20&%20", match)
         category = re.sub(r" &amp; ", "_", match)
         category = re.match('^http.+\/livepacks\/(.*?)\/', category)
         category_name = category.group(1)
@@ -66,7 +66,7 @@ with requests.Session() as c:
         # if debug == 1: print("{}{}{}{}".format("/",category_name,"/",pack_name))
 
         file_path = DIR_NAME + category_name + "/" + pack_name
-        remote_file = urllib.request.urlopen(alpurl)
+        remote_file = urllib.request.urlopen(alp_url)
         remote_file_size = remote_file.headers['Content-Length']
 
         # if int(remote_file_size) <= 10485760:
@@ -79,7 +79,7 @@ with requests.Session() as c:
                 if int(remote_file_size) != int(file_size_on_disk):
                     print("Remote file", pack_name, "seems to be newer than local file (", size(int(remote_file_size)),
                           "compared to", size(int(file_size_on_disk)), ")")
-                    _download_file(alpurl, pack_name)
+                    _download_file(alp_url, pack_name)
                     print("Moving pack_name to \"" + category_name + "\" folder")
                     os.rename(pack_name, category_name + "/" + pack_name)
                     print("Downloading complete")
@@ -89,7 +89,7 @@ with requests.Session() as c:
                     if not os.path.exists(category_name):
                         print("Creating folder \"" + category_name + "\"")
                         os.makedirs(category_name)
-                    _download_file(alpurl, pack_name)
+                    _download_file(alp_url, pack_name)
                     print("Moving pack_name to (", category_name, ") folder")
                     os.rename(pack_name, category_name + "/" + pack_name)
                     print("Downloading complete ")
