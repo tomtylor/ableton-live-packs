@@ -22,7 +22,7 @@ URL = 'https://www.ableton.com/en/login/'
 PACKS = 'https://www.ableton.com/en/packs/'
 
 
-################## LOCAL FUNCTIONS #################
+################# LOCAL FUNCTIONS ################
 
 def _download_file(url, filename):
     r = requests.get(url, stream=True)
