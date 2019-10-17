@@ -48,12 +48,17 @@ with requests.Session() as c:
 
     page = c.get(PACKS)
     page_source_code = page.text
-    p = re.compile('http://cdn2-downloads\.ableton.com.*?\.alp', re.IGNORECASE)
+
+    print(page_source_code)
+
+    p = re.compile('https://cdn-downloads\.ableton\.com.*?\.alp', re.IGNORECASE)
     m_all = p.findall(page_source_code)
 
     if debug == 1:
         print("### Changing folder to \"" + DIR_NAME + "\" ###")
     os.chdir(DIR_NAME)
+
+    print(m_all)
 
     for match in m_all:
         pack_name = re.match('.+/([A-Za-z0-9-_\.]+\.alp)', match)

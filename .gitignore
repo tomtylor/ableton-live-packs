@@ -23,6 +23,7 @@ var/
 *.egg-info/
 .installed.cfg
 *.egg
+ableton_live_packs
 
 # PyInstaller
 #  Usually these files are written by a python script from a template
