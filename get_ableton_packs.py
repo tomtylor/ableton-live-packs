@@ -51,7 +51,7 @@ with requests.Session() as c:
 
     print(page_source_code)
 
-    p = re.compile('https://cdn-downloads\.ableton\.com.*?\.alp', re.IGNORECASE)
+    p = re.compile(r'https://cdn-downloads.ableton.com\.*?.alp', re.IGNORECASE)
     m_all = p.findall(page_source_code)
 
     if debug == 1:
@@ -61,7 +61,7 @@ with requests.Session() as c:
     print(m_all)
 
     for match in m_all:
-        pack_name = re.match('.+/([A-Za-z0-9-_\.]+\.alp)', match)
+        pack_name = re.match(r'.+/([A-Za-z0-9-_.]+.alp)', match)
         pack_name = pack_name.group(1)
         alp_url = re.sub(r" &amp; ", "%20&%20", match)
         category = re.sub(r" &amp; ", "_", match)

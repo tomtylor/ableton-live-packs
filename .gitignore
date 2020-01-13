@@ -58,3 +58,10 @@ docs/_build/
 
 # PyBuilder
 target/
+
+# VSCode
+.vscode/
+
+# pipenv
+Pipfile
+Pipfile.lock
